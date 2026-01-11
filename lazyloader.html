@@ -67,37 +67,32 @@
             targetDisplay.textContent = url;
             document.title = `[Waiting] ${url}`;
 
-            function loadUrl() {
-                window.location.replace(url);
-            }
+            // Load on focus - with a delay to prevent "flash" loading during batch open
+            setTimeout(() => {
+                // Function to check and load
+                const checkAndLoad = () => {
+                    if (document.visibilityState === 'visible') {
+                        loadUrl();
+                    }
+                };
 
-            // Load on focus
-            window.addEventListener('focus', loadUrl, false);
+                // 1. If already visible after delay (e.g. user stayed on this tab), load.
+                checkAndLoad();
+
+                // 2. Listen for future focus/visibility
+                window.addEventListener('focus', loadUrl, false);
+                document.addEventListener('visibilitychange', checkAndLoad);
+                
+                // Update status text
+                document.querySelector('p').textContent = "Ready. Click inside or switch tab to load.";
+                
+                // Add a global click listener to body as a fallback "wake up"
+                document.body.addEventListener('click', loadUrl);
+
+            }, 800); // 800ms buffer to safely ignore the "open" event focus spike
 
             // Manual load button
             document.getElementById('manual-load-btn').addEventListener('click', loadUrl);
-
-            // Also try to detect if the tab is already active/visible (e.g. middle click without backgrounding)
-            if (document.visibilityState === 'visible') {
-               // Optional: Auto-load immediately if opened in foreground? 
-               // The user requested "do not load until selected". 
-               // Usually opening in new tab gives it focus unless specified otherwise.
-               // If opened with command/ctrl+click, it opens in background (unfocused).
-               // If opened normally, it's focused.
-               // So relying on 'focus' event is correct. 
-               // If it starts focused, the 'focus' event might not fire immediately depending on browser implementation, 
-               // but 'visibilitychange' or just running it if visible might be better.
-               // However, to stick to "lazy", we wait for an explicit interaction or focus event.
-               // If the user opens it in foreground, they probably want to see it immediately.
-               // Let's add a small check: if it's visible initially, we can redirect? 
-               // But the requirement is "lazy load".
-               // The extension logic is: "until you go to that tab".
-               // If I open in foreground, I AM going to that tab.
-               // So immediate redirect on load if visible is acceptable/desired.
-               if (!document.hidden) {
-                   loadUrl();
-               }
-            }
         })();
     </script>
 </body>
