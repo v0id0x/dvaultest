@@ -47,35 +47,38 @@ $(document).ready(function() {
             const linkHref = linkObj.attr('href');
             const resultCard = linkObj.closest('.result-card');
 
-            // Open tab
-            const newWin = window.open(`../lazyloader.html#${linkHref}`, '_blank');
-
-            // Attempt to keep focus on the main page ("Open in background" style)
-            // Note: Modern browsers (Chrome/Firefox) often block this to prevent pop-unders.
-            // This is the best-effort solution for standard websites.
-            if (newWin) {
-                try {
-                    newWin.blur();
-                    window.focus();
-                } catch (e) {
-                    // Ignore focus errors
-                }
-            }
-
-            // Check if blocked
-            if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
-                alert("⚠️ Popup Blocked at item " + (i + 1) + "!\n\nPlease ensure you have selected 'Always allow popups...' in your browser address bar.\nThen try 'Open Batch' again to continue.");
-                // Update index to start from this failed item next time
-                currentBatchIndex += processedCount;
-                return; 
-            }
-
-            // Success: Mark as visited
-            if (resultCard.find('.visited-indicator').length === 0) {
-                resultCard.append('<span class="visited-indicator">✔</span>');
-            }
+            // --- Background Opening Strategy (Simulating Ctrl+Click) ---
+            const lazyUrl = `../lazyloader.html#${linkHref}`;
             
-            processedCount++;
+            // Create a temporary hidden link
+            const a = document.createElement('a');
+            a.href = lazyUrl;
+            a.target = '_blank';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+
+            // Create a click event with Ctrl (Windows/Linux) or Meta (Mac) key
+            // This tells the browser: "Open this in a background tab"
+            const clickEvent = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+                ctrlKey: true,  // For background tab on Windows/Linux
+                metaKey: true   // For background tab on Mac
+            });
+
+            const success = a.dispatchEvent(clickEvent);
+            document.body.removeChild(a);
+
+            // Note: Background tabs opened via dispatchEvent often bypass focus,
+            // but success detection is harder. We assume it worked if dispatch returned true.
+            if (success) {
+                // Success: Mark as visited
+                if (resultCard.find('.visited-indicator').length === 0) {
+                    resultCard.append('<span class="visited-indicator">✔</span>');
+                }
+                processedCount++;
+            }
 
             // Small delay to prevent browser throttling (300ms)
             setTimeout(function() {
