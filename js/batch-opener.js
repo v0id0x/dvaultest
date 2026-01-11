@@ -1,7 +1,6 @@
 $(document).ready(function() {
     let currentBatchIndex = 0;
 
-    // Inject Batch Open Controls into the Results Header
     const batchControls = `
         <div class="batch-controls" style="display: flex; align-items: center; gap: 10px; font-size: 1rem;">
             <label for="batch-size" style="color: var(--text-color); font-size: 0.9rem;">Batch:</label>
@@ -11,14 +10,12 @@ $(document).ready(function() {
     `;
 
     const resultsTitle = $('.results-container .card-title');
-    // Wrap title content to preserve it and add controls
     resultsTitle.css({
         'display': 'flex',
         'justify-content': 'space-between',
         'align-items': 'center'
     });
     resultsTitle.append(batchControls);
-
 
     $('#open-batch-btn').on('click', function() {
         const batchSize = parseInt($('#batch-size').val()) || 10;
@@ -48,9 +45,6 @@ $(document).ready(function() {
             const linkObj = $(linksToOpen[i]);
             const linkHref = linkObj.attr('href');
             const resultCard = linkObj.closest('.result-card');
-
-            // Strategy: Hidden Link + Ctrl Click
-            // Path is relative to dork page (e.g. dorks/google.html), so lazyloader is just 'lazyloader.html'
             const lazyUrl = `lazyloader.html#${linkHref}`;
             
             const a = document.createElement('a');

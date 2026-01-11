@@ -56,10 +56,20 @@ $(document).ready(function() {
         reader.readAsText(targetsFile);
     });
 
-    $('#result-list').on('click', 'a', function() {
-        const resultCard = $(this).closest('.result-card');
-        if (resultCard.find('.visited-indicator').length === 0) {
-            resultCard.append('<span class="visited-indicator">✔</span>');
+    // Make the entire card clickable
+    $('#result-list').on('click', '.result-card', function(e) {
+        const link = $(this).find('a');
+        const href = link.attr('href');
+        
+        // If the user clicked the link text itself, standard browser behavior works.
+        // If they clicked the empty space in the card, we open it manually.
+        if (!$(e.target).is('a')) {
+            window.open(href, '_blank');
+        }
+
+        // Add tick mark
+        if ($(this).find('.visited-indicator').length === 0) {
+            $(this).append('<span class="visited-indicator">✔</span>');
         }
     });
 });

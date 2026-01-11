@@ -94,10 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
         generateLinks(dorkType);
     });
 
-    $('#result-list').on('click', 'a', function() {
-        const resultCard = $(this).closest('.result-card');
-        if (resultCard.find('.visited-indicator').length === 0) {
-            resultCard.append('<span class="visited-indicator">✔</span>');
+    $('#result-list').on('click', '.result-card', function(e) {
+        const link = $(this).find('a');
+        const href = link.attr('href');
+        
+        if (!$(e.target).is('a')) {
+            window.open(href, '_blank');
+        }
+
+        if ($(this).find('.visited-indicator').length === 0) {
+            $(this).append('<span class="visited-indicator">✔</span>');
         }
     });
 });
