@@ -1,16 +1,15 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap');
 
 :root {
-    --bg-color: #0f0c29;
-    --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --bg-color: #050505;
+    --bg-gradient: linear-gradient(135deg, #050505 0%, #11051b 50%, #050505 100%);
     --primary-color: #b5179e;
     --secondary-color: #7209b7;
     --accent-color: #4cc9f0;
     --text-color: #ffffff;
     --card-bg: rgba(255, 255, 255, 0.05);
     --border-color: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     --border-radius: 16px;
     --transition-speed: 0.3s;
 }
@@ -32,10 +31,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-body::after {
-    display: none; /* Removed the old grid overlay for cleaner look */
-}
-
 .bubbles {
     position: fixed;
     top: 0;
@@ -52,9 +47,9 @@ body::after {
     bottom: -100px;
     width: 40px;
     height: 40px;
-    background: rgba(114, 9, 183, 0.2);
+    background: rgba(114, 9, 183, 0.1);
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(114, 9, 183, 0.4);
+    box-shadow: 0 0 15px rgba(114, 9, 183, 0.2);
     animation: rise 15s infinite ease-in;
     filter: blur(2px);
 }
@@ -160,26 +155,10 @@ h1 {
     align-items: center;
 }
 
-.tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
 .tool-card:hover {
     transform: translateY(-10px) rotateX(5deg);
     border-color: var(--primary-color);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(181, 23, 158, 0.4);
-}
-
-.tool-card:hover::before {
-    opacity: 1;
 }
 
 input[type="text"],
@@ -193,14 +172,14 @@ select {
     border: 1px solid var(--border-color);
     background: rgba(0, 0, 0, 0.3);
     color: #fff;
-    font-family: 'Poppins', sans-serif; /* Use Poppins for UI elements */
+    font-family: 'Poppins', sans-serif;
     font-size: 0.95rem;
     transition: all var(--transition-speed);
     box-sizing: border-box;
 }
 
 textarea {
-    font-family: 'Roboto Mono', monospace; /* Keep dorks monospaced */
+    font-family: 'Roboto Mono', monospace;
     min-height: 120px;
     resize: vertical;
 }
@@ -238,10 +217,6 @@ button:hover {
     box-shadow: 0 8px 25px rgba(114, 9, 183, 0.6);
 }
 
-button:active {
-    transform: translateY(1px);
-}
-
 .dork-format-selection {
     display: flex;
     align-items: center;
@@ -260,6 +235,7 @@ button:active {
     font-size: 0.9rem;
     flex: 1;
     text-align: center;
+    white-space: nowrap;
 }
 
 .dork-format-selection input[type="radio"]:checked + label {
@@ -283,15 +259,18 @@ button:active {
 
 .result-card {
     background: rgba(255, 255, 255, 0.03);
-    padding: 1.2rem;
+    padding: 0 1.5rem;
+    height: 60px;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.05);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     transition: all 0.2s ease;
     display: flex;
     justify-content: space-between;
     align-items: center;
     animation: slide-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .result-card:hover {
@@ -303,10 +282,14 @@ button:active {
 .result-card a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-family: 'Roboto Mono', monospace;
-    word-break: break-all;
     transition: color 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+    display: block;
 }
 
 .result-card a:hover {
@@ -320,7 +303,6 @@ button:active {
     filter: drop-shadow(0 0 5px rgba(0, 255, 127, 0.5));
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
