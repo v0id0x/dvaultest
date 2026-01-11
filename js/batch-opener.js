@@ -1,20 +1,24 @@
 $(document).ready(function() {
     let currentBatchIndex = 0;
 
-    // Inject Batch Open Card
-    const batchCard = `
-        <div class="card batch-open-card">
-            <h2 class="card-title">Batch Open</h2>
-            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
-                <input type="number" id="batch-size" value="10" min="1" placeholder="Size" style="width: 80px;">
-                <button id="open-batch-btn" type="button" style="flex: 1;">Open Batch</button>
-            </div>
-             <p style="font-size: 0.8rem; color: #aaa; margin-top: 5px;">Opens links in lazy-loading tabs.</p>
+    // Inject Batch Open Controls into the Results Header
+    const batchControls = `
+        <div class="batch-controls" style="display: flex; align-items: center; gap: 10px; font-size: 1rem;">
+            <label for="batch-size" style="color: var(--text-color); font-size: 0.9rem;">Batch:</label>
+            <input type="number" id="batch-size" value="10" min="1" style="width: 60px; padding: 5px; height: auto;">
+            <button id="open-batch-btn" type="button" style="padding: 5px 15px; font-size: 0.9rem; margin: 0; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);">Open</button>
         </div>
     `;
-    
-    // Append to control panel
-    $('.control-panel').append(batchCard);
+
+    const resultsTitle = $('.results-container .card-title');
+    // Wrap title content to preserve it and add controls
+    resultsTitle.css({
+        'display': 'flex',
+        'justify-content': 'space-between',
+        'align-items': 'center'
+    });
+    resultsTitle.append(batchControls);
+
 
     $('#open-batch-btn').on('click', function() {
         const batchSize = parseInt($('#batch-size').val()) || 10;
@@ -31,14 +35,12 @@ $(document).ready(function() {
         }
 
         const endIndex = Math.min(currentBatchIndex + batchSize, allLinks.length);
-        // Convert jQuery object to standard array for easier indexing
         const linksToOpen = allLinks.slice(currentBatchIndex, endIndex).toArray();
         
         let processedCount = 0;
 
         function openNext(i) {
             if (i >= linksToOpen.length) {
-                // All done for this batch
                 currentBatchIndex += processedCount;
                 return;
             }
@@ -47,50 +49,42 @@ $(document).ready(function() {
             const linkHref = linkObj.attr('href');
             const resultCard = linkObj.closest('.result-card');
 
-            // --- Background Opening Strategy (Simulating Ctrl+Click) ---
-            const lazyUrl = `../lazyloader.html#${linkHref}`;
+            // Strategy: Hidden Link + Ctrl Click
+            // Path is relative to dork page (e.g. dorks/google.html), so lazyloader is just 'lazyloader.html'
+            const lazyUrl = `lazyloader.html#${linkHref}`;
             
-            // Create a temporary hidden link
             const a = document.createElement('a');
             a.href = lazyUrl;
             a.target = '_blank';
             a.style.display = 'none';
             document.body.appendChild(a);
 
-            // Create a click event with Ctrl (Windows/Linux) or Meta (Mac) key
-            // This tells the browser: "Open this in a background tab"
             const clickEvent = new MouseEvent('click', {
                 view: window,
                 bubbles: true,
                 cancelable: true,
-                ctrlKey: true,  // For background tab on Windows/Linux
-                metaKey: true   // For background tab on Mac
+                ctrlKey: true,
+                metaKey: true
             });
 
             const success = a.dispatchEvent(clickEvent);
             document.body.removeChild(a);
 
-            // Note: Background tabs opened via dispatchEvent often bypass focus,
-            // but success detection is harder. We assume it worked if dispatch returned true.
             if (success) {
-                // Success: Mark as visited
                 if (resultCard.find('.visited-indicator').length === 0) {
                     resultCard.append('<span class="visited-indicator">✔</span>');
                 }
                 processedCount++;
             }
 
-            // Small delay to prevent browser throttling (300ms)
             setTimeout(function() {
                 openNext(i + 1);
             }, 300);
         }
 
-        // Start the sequence
         openNext(0);
     });
 
-    // Reset index when Generate Links is clicked
     $('#generate-links-btn').on('click', function() {
         currentBatchIndex = 0;
     });
