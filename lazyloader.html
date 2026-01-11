@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .loader {
+            border: 4px solid #333;
+            border-top: 4px solid #00ff00;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <p>Waiting for focus to load...</p>
+    <p id="target-url" style="font-size: 0.8rem; color: #888;"></p>
+    <button id="manual-load-btn">Load Now</button>
+
+    <script>
+        (function() {
+            const url = window.location.hash.substring(1);
+            if (!url) {
+                document.body.innerHTML = '<p>No URL specified.</p>';
+                return;
+            }
+
+            const targetDisplay = document.getElementById('target-url');
+            targetDisplay.textContent = url;
+            document.title = `[Waiting] ${url}`;
+
+            function loadUrl() {
+                window.location.replace(url);
+            }
+
+            // Load on focus
+            window.addEventListener('focus', loadUrl, false);
+
+            // Manual load button
+            document.getElementById('manual-load-btn').addEventListener('click', loadUrl);
+
+            // Also try to detect if the tab is already active/visible (e.g. middle click without backgrounding)
+            if (document.visibilityState === 'visible') {
+               // Optional: Auto-load immediately if opened in foreground? 
+               // The user requested "do not load until selected". 
+               // Usually opening in new tab gives it focus unless specified otherwise.
+               // If opened with command/ctrl+click, it opens in background (unfocused).
+               // If opened normally, it's focused.
+               // So relying on 'focus' event is correct. 
+               // If it starts focused, the 'focus' event might not fire immediately depending on browser implementation, 
+               // but 'visibilitychange' or just running it if visible might be better.
+               // However, to stick to "lazy", we wait for an explicit interaction or focus event.
+               // If the user opens it in foreground, they probably want to see it immediately.
+               // Let's add a small check: if it's visible initially, we can redirect? 
+               // But the requirement is "lazy load".
+               // The extension logic is: "until you go to that tab".
+               // If I open in foreground, I AM going to that tab.
+               // So immediate redirect on load if visible is acceptable/desired.
+               if (!document.hidden) {
+                   loadUrl();
+               }
+            }
+        })();
+    </script>
+</body>
+</html>

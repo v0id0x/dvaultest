@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DorkVault - Ultimate Dorking ToolKit</title>
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <div class="bubbles"></div>
+
+    <header>
+        <h1>Dork Vault</h1>
+    </header>
+
+    <div class="grid-container">
+        <a href="dorks/google_dorks.html" class="tool-card">Google</a>
+        <a href="dorks/github_dorks.html" class="tool-card">GitHub</a>
+        <a href="dorks/bing_dorks.html" class="tool-card">Bing</a>
+        <a href="dorks/duckduckgo_dorks.html" class="tool-card">DuckDuckGo</a>
+        <a href="dorks/shodan_dorks.html" class="tool-card">Shodan</a>
+        <a href="dorks/fofa_dorks.html" class="tool-card">Fofa</a>
+        <a href="dorks/pastebin_dorks.html" class="tool-card">Pastebin</a>
+        <a href="dorks/yahoo_dorks.html" class="tool-card">Yahoo</a>
+        <a href="dorks/mass_dorks.html" class="tool-card">Mass Dork</a>
+    </div>
+
+    <footer>
+        <p>2025 | Created with ❤️ by <a href="https://x.com/_r4gh4v" target="_blank">r4gh4v</a> &amp; <a href="https://github.com/opieum" target="_blank">r4gh4v</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bubblesContainer = document.querySelector('.bubbles');
+            const numberOfBubbles = 20;
+
+            for (let i = 0; i < numberOfBubbles; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const size = Math.random() * 60 + 10 + 'px';
+                bubble.style.width = size;
+                bubble.style.height = size;
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.animationDuration = Math.random() * 5 + 8 + 's';
+                bubble.style.animationDelay = Math.random() * 5 + 's';
+                bubblesContainer.appendChild(bubble);
+            }
+        });
+    </script>
+</body>
+</html>

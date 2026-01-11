@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DorkVault - Mass Dorks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="r4gh4v">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/theme.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/mass-dork-page.js"></script>
+    <script src="../js/batch-opener.js"></script>
+</head>
+<body>
+    <div class="bubbles"></div>
+    <header>
+        <h1>Mass Dorks</h1>
+    </header>
+
+    <div class="main-container">
+        <div class="control-panel">
+            <div class="card">
+                <h2 class="card-title">1. Load Targets</h2>
+                <input type="file" id="targets-file">
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">2. Select Search Engine</h2>
+                <select id="search-engine">
+                    <option value="google">Google</option>
+                    <option value="bing">Bing</option>
+                    <option value="yahoo">Yahoo</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">3. Dork Format</h2>
+                <div class="dork-format-selection">
+                    <input type="radio" id="format-site-target" name="dork-format" value="site:target" checked>
+                    <label for="format-site-target">site:{target}</label>
+                    <input type="radio" id="format-target" name="dork-format" value="target">
+                    <label for="format-target">"{target}"</label>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">4. Enter Dork</h2>
+                <input type="text" id="dork" placeholder="e.g., intitle:index of">
+            </div>
+
+            <div class="card">
+                <button id="generate-links-btn" type="button">Generate Links</button>
+            </div>
+        </div>
+
+        <div class="results-container card">
+             <h2 class="card-title">Results</h2>
+             <div id="result-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>2025 | Created with ❤️ by <a href="https://x.com/0xJunglee" target="_blank">r4gh4v</a> &amp; <a href="https://github.com/0xJunglee" target="_blank">0xJunglee</a></p>
+    </footer>
+</body>
+</html>

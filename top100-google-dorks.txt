@@ -1,0 +1,122 @@
+allinurl:"admin" mdb
+"AWS_ACCESS_KEY_ID" | "-----BEGIN PRIVATE KEY-----" | "AWS_SECRET_ACCESS_KEY" (ext:pem OR ext:key)
+"confidential" | "confidential" (filetype:pdf OR filetype:docx) | inurl:"/confidential" filetype:pdf | intext:"confidential" filetype:pdf | intext:"internal use only" filetype:xls | intext:"internal use only"
+"CV" "private" filetype:doc | "employee information" filetype:xlsx | intitle:"list of employees" | intitle:"list of users" filetype:xls | inurl:cv_uploads filetype:docx
+"docker-compose.yml" (password OR environment)
+"email address"
+"employee" filetype:xls | filetype:pdf "confidential" | "IP address" "subnet" | "Security Audit" filetype:pdf | ("Vulnerability Report" | "Vulnerability Analysis") | confidential "vulnerability"  | ("Internal Report" OR "Penetration Test") |  "mission report"
+("Exploit Details" OR "Security Testing Results") | ("Security Assessment" OR "Threat Report")
+ext:achee | ext:action | ext:adr | ext:ascx | ext:asmx
+ext:axd | ext:backup | ext:bak | ext:bkf | ext:bkp | ext:bok
+ext:cfg | ext:cfm | ext:cgi | ext:cnf | ext:conf | ext:config
+ext:crt | ext:csr | ext:csv | ext:dat | ext:doc | ext:docx | ext:eml
+ext:env ("DB_PASS" OR "DB_PASSWORD" OR "REDIS_PASSWORD")
+ext:env | ext:exe | ext:git | ext:gz | ext:htaccess | ext:htpasswd | ext:ica
+ext:env "JWT_SECRET" | intext:"Bearer eyJ"
+(ext:env OR ext:yml OR ext:yaml OR ext:ini OR ext:json) (password OR secret OR "api_key" OR token)
+(ext:env OR ext:yml) (password OR secret)
+ext:inf | ext:ini | ext:java | ext:json | ext:key | ext:log | ext:lst | ext:mai
+(ext:json OR ext:yaml) ("api_key" OR "client_secret" OR "private_key")
+ext:log ("error" OR "exception" OR "trace") -inurl:changelog
+(ext:log OR ext:txt) (exception OR stacktrace OR "NullReferenceException") "phpinfo()"
+ext:mbox | ext:mbx | ext:md | ext:mdb | ext:nsf | ext:odt | ext:old | ext:ora
+ext:pac | ext:passwd | ext:pcf | ext:pdf | ext:pem | ext:pgp | ext:pl | ext:plist
+ext:pps | ext:ppt | ext:pptx | ext:psw | ext:pwd | ext:rdp | ext:reg | ext:rtf
+ext:sh | ext:skr | ext:sql | ext:svn | ext:swf | ext:swp | ext:sxw | ext:tpl
+(ext:sql OR ext:bak OR ext:backup OR ext:old OR ext:7z OR ext:zip) (dump OR backup)
+(ext:sql OR ext:dump OR ext:bak OR ext:backup OR ext:old) ("INSERT INTO" OR "MySQL dump")
+ext:txt | ext:url | ext:wml | ext:xls | ext:xlsx | ext:xml | ext:xsd | ext:yml
+ext:txt | filetype:xml | filetype:xls | filetype:xlsx | filetype:pdf | ext:pptx | ext:doc | ext:docx | intext:'confidential' | intext: 'Not for Public Release' | intext: 'internal use only' | intext: 'private'
+(ext:xls OR ext:xlsx OR ext:csv) ("SSN" OR "employee id" OR "salary")
+(ext:xml OR ext:cfg) (settings OR config) ("password=" OR "user=")
+(ext:yml OR ext:yaml) ("aws_access_key_id" OR "aws_secret_access_key")
+filetype:cfg "router" | filetype:conf iptables | filetype:csv "contact list" | filetype:csv "credit card"
+filetype:csv "email list" | filetype:csv "server inventory" | filetype:dbf "credit card"
+filetype:doc "for internal use" | filetype:docx "proprietary" | filetype:docx "Standard Operating Procedure" | filetype:env DB_PASSWORD
+filetype:env "SECRET_KEY=" | filetype:json "api key" | filetype:json inurl:"config" | filetype:json inurl:"token"
+filetype:java "password" | filetype:pem "PRIVATE KEY" | filetype:ppk intext:"PuTTY" | inurl:"id_rsa" filetype:key
+filetype:log "admin login" | filetype:log "credentials" | filetype:log "error" "warning" | filetype:log intext:"password"
+filetype:log inurl:"access" | filetype:log inurl:"error" | filetype:pdf "confidential" | filetype:pdf "employee details" inurl:/documents/
+filetype:pdf | filetype:pdf after:2025-01-01 "confidential"
+filetype:pdf "incident log" | filetype:pdf intext:"password" | filetype:pdf "policy document" | filetype:pdf "resume" "confidential"
+filetype:pdf site:drive.google.com "salary" | filetype:sql "DROP TABLE" | filetype:sql inurl:"database" | filetype:sql inurl:"dump"
+filetype:sql inurl:"password" | filetype:sql inurl:"users" | filetype:sql "password" | filetype:txt intext:"IPSec"
+filetype:txt inurl:"password" | filetype:txt "password" | filetype:xls "financial report" | filetype:xls inurl:"contact"
+filetype:xls inurl:"contact list" | filetype:xls inurl:"email" | filetype:xls inurl:"email.xls" | filetype:xls inurl:"password.xls"
+filetype:xls "private" | filetype:xls "switch port mapping" | filetype:xls "username Passwords" | filetype:xlsx "hostname" "IP Address"
+filetype:xlsx "incident response" | filetype:xlsx "phone number" | filetype:xlsx "student data" | filetype:xml inurl:"config"
+filetype:xml inurl:"settings" | filetype:xml inurl:"user"
+"firewall rules" filetype:doc | intext:"SSN" filetype:xls
+"id_rsa" -github.com
+"Index of" intitle:"index of" (bak OR backup OR .git OR .svn OR config) | inurl:/.git/ (HEAD OR config) ".DS_Store" | "Index of" / "chat/logs"
+intext:"API_KEY=" OR intext:"SECRET_KEY=" | intext:"aws_access_key_id=" | intext:"PHPSESSID=" | intext:"session_token="
+intext:"Database dump" filetype:sql | intitle:"Database Dump"
+intext:”incorrect syntax near” | intext:”password” | intext:”syntax error has occurred” | intext:”unexpected end of SQL command” | intext:”username”
+intext:"login: admin"
+intext:"user: admin" | intext:"user" inurl:"login" | intext:"password" filetype:log | intitle:"Network Status" inurl:"admin"
+intext:"username=admin" intext:"password=admin"
+intext:"vulnerability report" filetype:pdf | "Bug Bounty Report" filetype:docx | "Vulnerability Summary" filetype:xls
+intext:”Warning: mysql_connect()” | intext:”Warning: mysql_query()” | intext:”Warning: pg_connect()” | intext:”sql syntax near”
+(intitle:"admin" OR intitle:"dashboard") (login OR signin)
+intitle:"email" filetype:txt | intitle:"email list" filetype:csv | intext:"name" filetype:csv | intitle:"passwords" filetype:txt | inurl:"email" filetype:mdb
+intitle:"index of" "~backup" | intitle:"index of" "backup" | intitle:"Index of /backup"
+intitle:"Index of" "cgiirc.config" | intitle:"index of" "~confidential" | intitle:"index of" "~config" | intitle:"index of" /config | intitle:"index of" /config ~backup | intitle:"index of" "~config" "~private"
+intitle:"Index of /database" | intitle:"index of" (backup OR db.sql) | intitle:"index of" "backup" ~private | intitle:"index of" (db.sql OR backup.zip OR .tar.gz)
+intitle:"index of" /docs | intitle:"Index of" "~ftp" | intitle:"index of" "~.htaccess" | intitle:"index of" "logins" | intitle:"index of" "logs" | intitle:"index of" "nda.pdf"
+intitle:"index of" | intitle:"index of" ~password | intitle:"index of" "~passwords" | intitle:"index of" ~private | intitle:"index of" /uploads
+intitle:”login” | intitle:Login | intitle:”password” | intitle: signin | intitle:”username”
+(intitle:"login" OR inurl:login OR inurl:signin) | (inurl:wp-admin OR inurl:/admin OR inurl:admin/login)
+intitle:"server-status" | intitle:"powered by WordPress"
+inurl:access= | inurl:account= | inurl:action= | inurl:activity= | inurl:adm= | inurl:admin= | inurl:alter= | inurl:api= | inurl:year= inurl:&
+inurl:"/admin/config" | inurl:"/admin/config.php" | inurl:"/admin/configure" | inurl:"/admin" filetype:html | inurl:"admin" filetype:pdf
+inurl:"admin" filetype:xls | inurl:"admin" intext:"login" filetype:html | inurl:"/admin" intitle:"configuration" | inurl:"/admin" intitle:"dashboard"
+inurl:"/admin" intitle:"login" | inurl:"/admin_login" filetype:html | inurl:admin (login|panel|console) | inurl:"/admin" | inurl:"backup" | inurl:"/cgi-bin/"
+inurl:/admin intitle:"index of"
+inurl:api | inurl:login | inurl:api-docs | inurl:apidocs | inurl:api-explorer
+inurl:api_key= | inurl:arg= | inurl:auth= | inurl:begindate= | inurl:board= | inurl:callback= | inurl:cat= | inurl:categoryid= inurl:&
+inurl:"backup" filetype:mdb | inurl:"/backup" filetype:zip | inurl:"/backups" filetype:sql | inurl:"backup.zip" | inurl:"dump.sql" inurl:"*db" filetype:mdb | inurl:"/db/" filetype:sql
+inurl:cfg= | inurl:checkout= | inurl:checkout_url= | inurl:cli= | inurl:clone= | inurl:cmd= | inurl:code= | inurl:column=  inurl:&
+inurl:cgi-bin/redirect.cgi | inurl:cgi-bin/redirect.cgi?
+inurl:command= | inurl:conf= | inurl:config= | inurl:content= | inurl:continue= | inurl:create= | inurl:csrf_token= | inurl:daemon= inurl:&
+inurl:"/config" | inurl:"config.php"
+inurl:"contact" | inurl:"password" | inurl:"directory" | inurl:"login"
+inurl:dashboards inurl:alerting -site:gitub.com "Manage folder dashboards and permissions"
+inurl:data= | inurl:date= | inurl:db= | inurl:dbg= | inurl:debug= | inurl:delete= | inurl:demo= | inurl:dest= | inurl:destination= inurl:&
+inurl:"/debug" filetype:php | inurl:".env" | inurl:/env OR inurl:/debug | inurl:"/.git/config" | inurl:.git (config OR HEAD)
+inurl:detail= | inurl:dev | inurl:devops= | inurl:dir= | inurl:disable= | inurl:do= | inurl:doc= | inurl:document= | inurl:domain= inurl:&
+inurl:download= | inurl:edit= | inurl:email= | inurl:emailto= | inurl:enable= | inurl:enddate= | inurl:env= | inurl:exe= | inurl:exec= inurl:&
+inurl:execute= | inurl:feature= | inurl:feed= | inurl:fetch= | inurl:field= | inurl:file= | inurl:file_name= | inurl:filename= inurl:&
+inurl:file_url= | inurl:filter= | inurl:folder= | inurl:folder_url= | inurl:forward= | inurl:from= | inurl:from_url= | inurl:func= inurl:&
+inurl:function= | inurl:go= | inurl:goto= | inurl:grant= | inurl:group= | inurl:host= | inurl:html= | inurl:*id= | inurl:id= inurl:&
+inurl:image_url= | inurl:img= | inurl:img_url= | inurl:immagine= | inurl:inc= | inurl:include= | inurl:internal= | inurl:ip= inurl:&
+inurl:item= | inurl:jenkins= | inurl:jsonp= | inurl:jump= | inurl:key= | inurl:keyword= | inurl:keywords= | inurl:l= | inurl:lang= inurl:&
+inurl:layout= | inurl:list_type= | inurl:Lmage_url= | inurl:load= | inurl:load_file= | inurl:load_url= | inurl:locate= | inurl:log= inurl:&
+inurl:"login" filetype:php | (inurl:login OR inurl:callback) "error=" | inurl:"/logs/" intitle:"Index of"
+inurl:”login” | inurl:login?to= | inurl:login_url= | inurl:logout= | inurl:make= | inurl:mod= | inurl:modify= | inurl:module= inurl:&
+inurl:month= | inurl:name= | inurl:navigation= | inurl:next= | inurl:next_page= | inurl:no= | inurl:number= | inurl:open= inurl:&
+inurl:"/oauth/authorize" -stackoverflow.com | inurl:"phpinfo.php" | inurl:"/phpmyadmin/scripts/setup.php" | inurl:"/private/backup" filetype:tar | inurl:"/private" filetype:pdf | inurl:"/public_html" | inurl:"/search"
+inurl:option= | inurl:order= | inurl:out= | inurl:p= | inurl:page= | inurl:page_id= | inurl:page_url= | inurl:params= inurl:&
+inurl:password= | inurl:path= | inurl:payload= | inurl:pdf= | inurl:pg= | inurl:php_path= | inurl:ping= | inurl:plugins= inurl:&
+inurl:port= | inurl:prefix= | inurl:preview= | inurl:print= | inurl:process= | inurl:profile= | inurl:proxy= | inurl:q= | inurl:qa= inurl:&
+inurl:query= | inurl:read= | inurl:redir= | inurl:redirect= | inurl:redirect_to= | inurl:redirect_uri= | inurl:redirect_url= inurl:&
+inurl:reference= | inurl:reg= | inurl:rename= | inurl:report= | inurl:req= | inurl:reset= | inurl:results= | inurl:return= inurl:&
+inurl:return_path= | inurl:return_to= | inurl:returnTo= | inurl:return_url= | inurl:role= | inurl:root= | inurl:row= | inurl:rt= inurl:&
+inurl:run= | inurl:rurl= | inurl:s= | inurl:sandbox | inurl:search= | inurl:sel= | inurl:select= | inurl:shell= | inurl:show= inurl:&
+inurl:"/sensitive" filetype:txt | inurl:/upload.php ext:php | inurl:"/uploads/" | inurl:"/uploads/" filetype:docx | inurl:"/uploads/" filetype:pdf "signed" | inurl:"/users" filetype:csv
+inurl:signin | inurl:site= | inurl:sleep= | inurl:sort= | inurl:staff | inurl:stage | inurl:staging | inurl:step= | inurl:string= inurl:&
+inurl:style= | inurl:swagger | inurl:table= | inurl:target= | inurl:temp= | inurl:template= | inurl:terms= | inurl:test= | inurl:themes= inurl:&
+inurl:to= | inurl:toggle= | inurl:token= | inurl:type= | inurl:unsubscribe_token= | inurl:update= | inurl:upload= | inurl:uploads= inurl:&
+inurl:uri= | inurl:url= | inurl:user= | inurl:userid= | inurl:username= | inurl:val= | inurl:validate= | inurl:view= | inurl:where= | inurl:window= inurl:&
+inurl:"/wp-admin/" intitle:"login" | inurl:"/wp-content/" intitle:"directory" | inurl:wp-content/uploads | inurl:"/wp-includes/" | inurl:"/wp-json/" intext:"application-passwords" | inurl:"/wp-json/" intext:"backup" "}}}" | inurl:"/wp-json" intext:"/connect" "endpoints" "}}}" | inurl:"/wp-json/" intext:"database" "}}}" | inurl:"/wp-json" intext:"/v3" "{{" "context" | inurl:"/wp-json" intext:"/v4" "{{" "context" | inurl:"/wp-json/v2" site:gov | inurl:"/wp-login.php"
+inurl:wp-content inurl:".aspx" -inurl:ashx "X-Powered-By" "PHP"
+inurl:wp- | inurl:"/wp-config.php" | inurl:wp-content | inurl:"/wp-content/uploads/"
+"kubeconfig" (ext:yaml OR ext:yml) | "PAN number" filetype:pdf | "Penetration Test Report" filetype:doc
+"not for public release" | "internal network topology"
+ (private OR internal) | "Stack trace:" | "Warning: mysqli" OR "SQL syntax"
+"register as admin" "password" "username" | "register as employee" "password" "username" | "register as guest" "password" "username" | "register as staff" "password" "username" | "register as student" "password" "username"
+"restricted access" filetype:pdf
+site:atlassian.net | site:docs.google.com | (roadmap OR confidential OR private OR internal)
+site:docs.google.com confidential
+site:docs.google.com (OKR OR roadmap OR incident)
+site:http://ideone.com | site:http://codebeautify.org | site:http://codeshare.io | site:http://codepen.io | site:http://repl.it | site:http://justpaste.it | site:http://pastebin.com | site:http://jsfiddle.net | site:http://trello.com | site:*.atlassian.net | site:bitbucket.org
+site:/v1 | site:/v2 | site:/v3

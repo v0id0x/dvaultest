@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DorkInOne - Google Dorks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="r4gh4v">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/theme.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/dork-page.js"></script>
+    <script src="../js/batch-opener.js"></script>
+</head>
+<body>
+    <div class="bubbles"></div>
+    <header>
+        <h1>Google Dorks</h1>
+    </header>
+
+    <div class="main-container">
+        <div class="control-panel">
+            <div class="card">
+                <h2 class="card-title">1. Load Dorks</h2>
+                <input type="text" id="url" value="https://raw.githubusercontent.com/Mr0xF007/dorkvault/refs/heads/main/wordlists/top100-google-dorks.txt">
+                <button id="get-dorks-btn" type="button">Get Dorks</button>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">2. Set Target</h2>
+                <input type="text" id="target" placeholder="example.com">
+                <button id="generate-links-btn" data-dork-type="google" type="button">Generate Links</button>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">3. Dork Keywords</h2>
+                <textarea id="keywords" placeholder="Dorks will appear here..."></textarea>
+            </div>
+        </div>
+
+        <div class="results-container card">
+             <h2 class="card-title">Results</h2>
+             <div id="result-list"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>2025 | Created with ❤️ by <a href="https://x.com/0xJunglee" target="_blank">r4gh4v</a> &amp; <a href="https://github.com/0xJunglee" target="_blank">0xJunglee</a></p>
+    </footer>
+</body>
+</html>
