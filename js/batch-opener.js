@@ -50,6 +50,18 @@ $(document).ready(function() {
             // Open tab
             const newWin = window.open(`../lazyloader.html#${linkHref}`, '_blank');
 
+            // Attempt to keep focus on the main page ("Open in background" style)
+            // Note: Modern browsers (Chrome/Firefox) often block this to prevent pop-unders.
+            // This is the best-effort solution for standard websites.
+            if (newWin) {
+                try {
+                    newWin.blur();
+                    window.focus();
+                } catch (e) {
+                    // Ignore focus errors
+                }
+            }
+
             // Check if blocked
             if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
                 alert("⚠️ Popup Blocked at item " + (i + 1) + "!\n\nPlease ensure you have selected 'Always allow popups...' in your browser address bar.\nThen try 'Open Batch' again to continue.");
