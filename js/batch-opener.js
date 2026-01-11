@@ -31,39 +31,48 @@ $(document).ready(function() {
         }
 
         const endIndex = Math.min(currentBatchIndex + batchSize, allLinks.length);
-        const linksToOpen = allLinks.slice(currentBatchIndex, endIndex);
+        // Convert jQuery object to standard array for easier indexing
+        const linksToOpen = allLinks.slice(currentBatchIndex, endIndex).toArray();
         
-        let openedCount = 0;
-        let blocked = false;
+        let processedCount = 0;
 
-        linksToOpen.each(function() {
-            if (blocked) return false; // Break loop if blocked
+        function openNext(i) {
+            if (i >= linksToOpen.length) {
+                // All done for this batch
+                currentBatchIndex += processedCount;
+                return;
+            }
 
-            const linkHref = $(this).attr('href');
-            const resultCard = $(this).closest('.result-card');
-            
-            // Open in lazy loader
+            const linkObj = $(linksToOpen[i]);
+            const linkHref = linkObj.attr('href');
+            const resultCard = linkObj.closest('.result-card');
+
+            // Open tab
             const newWin = window.open(`../lazyloader.html#${linkHref}`, '_blank');
 
+            // Check if blocked
             if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
-                blocked = true;
-                alert("⚠️ Popups Blocked! ⚠️\n\nBrowsers block opening multiple tabs by default.\n\nPlease check the address bar (usually right side) for a 'Popup blocked' icon, click it, and select 'Always allow popups and redirects from this site'.\n\nThen click 'Open Batch' again.");
-                return false; // Break the jQuery loop
+                alert("⚠️ Popup Blocked at item " + (i + 1) + "!\n\nPlease ensure you have selected 'Always allow popups...' in your browser address bar.\nThen try 'Open Batch' again to continue.");
+                // Update index to start from this failed item next time
+                currentBatchIndex += processedCount;
+                return; 
             }
-            
-            // Mark as visited only if successful
+
+            // Success: Mark as visited
             if (resultCard.find('.visited-indicator').length === 0) {
                 resultCard.append('<span class="visited-indicator">✔</span>');
             }
-            openedCount++;
-        });
+            
+            processedCount++;
 
-        if (blocked) {
-            // Only advance the index by the amount actually opened
-             currentBatchIndex += openedCount;
-        } else {
-             currentBatchIndex = endIndex;
+            // Small delay to prevent browser throttling (300ms)
+            setTimeout(function() {
+                openNext(i + 1);
+            }, 300);
         }
+
+        // Start the sequence
+        openNext(0);
     });
 
     // Reset index when Generate Links is clicked
